@@ -93,24 +93,24 @@ void tampilkanItem(const stack<Item>& inventory) {
     }
 
     cout << "\n================= Daftar Inventory =================\n";
-    cout << left << setw(15) << "Kode"
-         << left << setw(25) << "Nama"
-         << left << setw(15) << "Kategori"
-         << right << setw(10) << "Jumlah"
-         << right << setw(20) << "Harga" << endl;
-    cout << string(80, '-') << endl;
+    cout << left << setw(20) << "Kode"
+         << left << setw(20) << "Nama"
+         << left << setw(20) << "Kategori"
+         << left << setw(20) << "Jumlah"
+         << left << setw(20) << "Harga" << endl;
+    cout << string(100, '-') << endl;
 
     stack<Item> temp = inventory;
     while (!temp.empty()) {
         Item item = temp.top();
         temp.pop();
-        cout << left << setw(15) << item.kodeInventaris
-             << left << setw(25) << item.nama
-             << left << setw(15) << item.kategori
-             << right << setw(10) << item.jumlah
-             << right << setw(20) << formatHarga(item.harga) << endl;
+        cout << left << setw(20) << item.kodeInventaris
+             << left << setw(20) << item.nama
+             << left << setw(20) << item.kategori
+             << left << setw(20) << item.jumlah
+             << left << setw(20) << formatHarga(item.harga) << endl;
     }
-    cout << string(80, '-') << endl;
+    cout << string(100, '-') << endl;
 }
 
 // Fungsi untuk menampilkan item berdasarkan kategori dengan informasi lebih spesifik
@@ -134,14 +134,14 @@ void tampilkanBerdasarkanKategori(const stack<Item>& inventory) {
     stack<Item> temp = inventory;
     
     // Menampilkan header sesuai format
-    cout << "\n================= Daftar Item Kategori Terpilih =================\n";
+   cout << "\n================= Daftar Item Kategori Terpilih =================\n";
     cout << left << setw(15) << "Kode"
          << left << setw(25) << "Nama"
-         << left << setw(15) << "Kategori"
-         << left << setw(20) << "Warna"
-         << right << setw(10) << "Jumlah"
-         << right << setw(20) << "Harga"
-         << right << setw(20) << "Spesifikasi" << endl; // Lebar kolom Spesifikasi lebih besar
+         << left << setw(20) << "Kategori"
+         << left << setw(15) << "Warna"
+         << left << setw(15) << "Jumlah"
+         << left << setw(20) << "Harga"
+         << "Spesifikasi" << endl; // Kolom spesifikasi tidak menggunakan setw
     cout << string(140, '-') << endl;
 
     while (!temp.empty()) {
@@ -157,26 +157,24 @@ void tampilkanBerdasarkanKategori(const stack<Item>& inventory) {
             // Menampilkan setiap item sesuai format
             cout << left << setw(15) << item.kodeInventaris
                  << left << setw(25) << item.nama
-                 << left << setw(15) << item.kategori
-                 << left << setw(20) << item.warna
-                 << right << setw(10) << item.jumlah
-                 << right << setw(20) << formatHarga(item.harga)
-                 << right << setw(20);  
+                 << left << setw(20) << item.kategori
+                 << left << setw(15) << item.warna
+                 << left << setw(15) << item.jumlah
+                 << left << setw(20) << formatHarga(item.harga);
 
             // Menampilkan spesifikasi berdasarkan kategori
             if (item.kategori == "Laptop") {
-                cout << "RAM: " << item.ram << ", CPU: " << item.cpu << ", GPU: " << item.gpu;
+                cout << "RAM: " << item.ram << ", CPU: " << item.cpu;
             } else if (item.kategori == "Desktop") {
-                cout << "CPU: " << item.cpu << ", GPU: " << item.gpu << ", RAM: " << item.ram << ", Storage: " << item.storage;
+                cout << "CPU: " << item.cpu << ", RAM: " << item.ram << ", Storage: " << item.storage;
             } else if (item.kategori == "Monitor") {
-                cout << "Resolusi: " << item.resolusi << ", Ukuran: " << item.ukuran << ", Panel: " << item.panel;
+                cout << "Resolusi: " << item.resolusi << ", Ukuran: " << item.ukuran;
             } else if (item.kategori == "Keyboard") {
                 cout << "Tipe Switch: " << item.tipeSwitch;
             } else if (item.kategori == "Mouse") {
-                cout << "Konektivitas: " << item.konektivitas << ", Sensor: " << item.sensor << ", DPI: " << item.dpi;
+                cout << "Konektivitas: " << item.konektivitas << ", Sensor: " << item.sensor;
             }
-
-            cout << endl;
+            cout << endl; // Akhiri baris setelah spesifikasi
         }
     }
 
@@ -224,15 +222,11 @@ void tambahItem(stack<Item>& inventory, set<string>& kodeSet) {
             getline(cin, itemBaru.ram);
             cout << "Masukkan CPU (contoh: Intel i7): ";
             getline(cin, itemBaru.cpu);
-            cout << "Masukkan GPU (contoh: NVIDIA GTX 1050): ";
-            getline(cin, itemBaru.gpu);
             break;
         case 2: 
             itemBaru.kategori = "Desktop"; 
             cout << "Masukkan CPU (contoh: Intel i5): ";
             getline(cin, itemBaru.cpu);
-            cout << "Masukkan GPU (contoh: NVIDIA GTX 1660): ";
-            getline(cin, itemBaru.gpu);
             cout << "Masukkan RAM (contoh: 16GB): ";
             getline(cin, itemBaru.ram);
             cout << "Masukkan Storage (contoh: 1TB SSD): ";
@@ -244,8 +238,6 @@ void tambahItem(stack<Item>& inventory, set<string>& kodeSet) {
             getline(cin, itemBaru.resolusi);
             cout << "Masukkan Ukuran (contoh: 24 inch): ";
             getline(cin, itemBaru.ukuran);
-            cout << "Masukkan Panel (contoh: IPS): ";
-            getline(cin, itemBaru.panel);
             break;
         case 4: 
             itemBaru.kategori = "Keyboard"; 
@@ -258,8 +250,6 @@ void tambahItem(stack<Item>& inventory, set<string>& kodeSet) {
             getline(cin, itemBaru.konektivitas);
             cout << "Masukkan Sensor (contoh: Optical, Laser): ";
             getline(cin, itemBaru.sensor);
-            cout << "Masukkan DPI (contoh: 1600): ";
-            cin >> itemBaru.dpi;
             cin.ignore();
             break;
         default: 
@@ -267,7 +257,7 @@ void tambahItem(stack<Item>& inventory, set<string>& kodeSet) {
             return;
     }
 
-    cout << "Masukkan Warna yang Tersedia (pisahkan dengan koma jika lebih dari satu): ";
+    cout << "Masukkan Warna yang Tersedia : ";
     getline(cin, itemBaru.warna);
 
     cout << "Masukkan Jumlah: ";
@@ -384,6 +374,40 @@ void hitungTotalNilai(const stack<Item>& inventory) {
     cout << "\nTotal nilai inventory: " << formatHarga(totalNilai) << endl;
 }
 
+void hapusItem(stack<Item>& inventory, set<string>& kodeSet) {
+    string kode;
+    cout << "Masukkan kode item yang ingin dihapus: ";
+    cin.ignore();
+    getline(cin, kode);
+
+    stack<Item> temp;
+    bool ditemukan = false;
+
+    while (!inventory.empty()) {
+        Item item = inventory.top();
+        inventory.pop();
+
+        if (item.kodeInventaris == kode) {
+            cout << "\nItem dengan kode " << kode << " berhasil dihapus.\n";
+            kodeSet.erase(kode); // Hapus kode dari set
+            ditemukan = true;
+            break;
+        } else {
+            temp.push(item);
+        }
+    }
+
+    while (!temp.empty()) {
+        inventory.push(temp.top());
+        temp.pop();
+    }
+
+    if (!ditemukan) {
+        cout << "\nItem dengan kode " << kode << " tidak ditemukan.\n";
+    }
+}
+
+
 int main() {
     stack<Item> inventory;
     set<string> kodeSet;  // Untuk menyimpan kode inventaris yang sudah ada
@@ -399,8 +423,9 @@ int main() {
         cout << "3. Tampilkan Semua Item" << endl;
         cout << "4. Tampilkan Berdasarkan Kategori" << endl;
         cout << "5. Update Item" << endl;
-        cout << "6. Hitung Total Nilai Inventory" << endl;
-        cout << "7. Keluar" << endl;
+        cout << "6. Hapus Item" << endl;
+        cout << "7. Hitung Total Nilai Inventory" << endl;
+        cout << "8. Keluar" << endl;
         cout << "===============================================\n";
         cout << "Pilih menu (1-7): ";
         cin >> pilihan;
@@ -427,9 +452,12 @@ int main() {
                 break;
             }
             case 6:
-                hitungTotalNilai(inventory);
+                hapusItem(inventory, kodeSet);
                 break;
             case 7:
+                hitungTotalNilai(inventory);
+                break;
+            case 8:
                 cout << "\nTerima kasih telah menggunakan sistem ini.\n";
                 break;
             default:
